@@ -11,8 +11,6 @@ def test_ing_cookie_acceptance():
                 # 1 Open the ING website
                 page.goto("https://www.ing.pl")
 
-                page.screenshot(path=f"test_web_{browser_type.name}.png")
-
                 # 2 Click button "Dostosuj"
                 page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
                 page.click('button.js-cookie-policy-main-settings-button')
