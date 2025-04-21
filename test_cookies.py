@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 
-def test_ing_cookie_acceptance():
+def test_ing_cookie_accept():
     with sync_playwright() as p:
         for browser_type in [p.chromium, p.firefox, p.webkit]:
             try:
@@ -10,9 +10,10 @@ def test_ing_cookie_acceptance():
 
                 # 1 Open the ING website
                 page.goto("https://www.ing.pl")
+                page.wait_for_load_state("networkidle")
 
                 # 2 Click button "Dostosuj"
-                page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
+                page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=20000)
                 page.click('button.js-cookie-policy-main-settings-button')
                 
                 # 3 Check option "Cookies analityczne"
@@ -46,4 +47,4 @@ def test_ing_cookie_acceptance():
                 context.close()
                 browser.close()
 
-test_ing_cookie_acceptance()
+test_ing_cookie_accept()
