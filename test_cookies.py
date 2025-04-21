@@ -11,6 +11,17 @@ def test_ing_cookie_acceptance():
 
             page.screenshot(path=f"test_web_{browser_type.name}.png")
 
+            # 1 Klikniecie przycisku "Dostosuj"
+            page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
+            page.click('button.js-cookie-policy-main-settings-button')
+            
+            # 2 Zaznaczenie opcji "Cookies analityczne"
+            page.wait_for_selector('div[name="CpmAnalyticalOption"]', timeout=5000)
+            page.click('div[name="CpmAnalyticalOption"]')
+
+            # 3 Klikniecie przycisku "Zaakceptuj zaznaczone"
+            page.click('button.js-cookie-policy-settings-decline-button')
+
             context.close()
             browser.close()
 
