@@ -37,14 +37,15 @@ def test_ing_cookie_accept():
                 assert found_cookie is not None, f"cookiePolicyGDPR cookie not found ({browser_type.name})"
                 assert found_cookie['value'] == '3', f"cookiePolicyGDPR cookie value is {found_cookie['value']}, expected 3 ({browser_type.name})"
                 
-                print(F"Successfully verified: cookiePolicyGDPR cookie has value {found_cookie['value']} ({browser_type.name})")
+                print(f"Successfully verified: cookiePolicyGDPR cookie has value {found_cookie['value']} ({browser_type.name})")
 
             except Exception as e:
-                page.screenshot(path="ing_error.png")
+                page.screenshot(path=f"ing_error_{browser_type.name}.png")
                 print(f"Error: {e}")
                 raise e
             finally:
                 context.close()
                 browser.close()
 
-test_ing_cookie_accept()
+if __name__ == "__main__":
+    test_ing_cookie_accept()
