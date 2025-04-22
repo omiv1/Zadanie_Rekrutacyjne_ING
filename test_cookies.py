@@ -16,7 +16,7 @@ def test_ing_cookie_accept():
 
                 # 1 Open the ING website
                 page.goto("https://www.ing.pl")
-                page.wait_for_load_state("networkidle")
+                #page.wait_for_load_state("networkidle")
 
                 captcha_iframe_selector = 'iframe[src*="hcaptcha.com"]'
                 captcha_iframe_count = page.locator(captcha_iframe_selector).count()
