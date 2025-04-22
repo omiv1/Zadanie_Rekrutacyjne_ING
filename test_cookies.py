@@ -22,6 +22,7 @@ def test_ing_cookie_accept():
                     captcha_frame = page.frame_locator('iframe[data-id^="hcaptcha-frame"]').first
                     captcha_frame.locator('[id="checkbox"]').click()
                     page.wait_for_timeout(5000)
+                    
 
                 # 2 Click button "Dostosuj"
                 page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=20000)
