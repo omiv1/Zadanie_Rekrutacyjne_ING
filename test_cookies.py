@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError
 
 def test_ing_cookie_accept():
     with sync_playwright() as p:
@@ -14,20 +14,24 @@ def test_ing_cookie_accept():
                 )
                 page = context.new_page()
 
-                # 1 Open the ING website
-                page.goto("https://www.ing.pl")
-                #page.wait_for_load_state("networkidle")
+                page.goto("https://www.ing.pl", wait_until="domcontentloaded")
 
-                captcha_iframe_selector = 'iframe[src*="hcaptcha.com"]'
-                captcha_iframe_count = page.locator(captcha_iframe_selector).count()
+                try:
+                    page.wait_for_selector('iframe[src*="hcaptcha.com"], button.js-cookie-policy-main-settings-button', timeout=20000)
+                except TimeoutError:
+                    raise Exception(f"[{browser_type.name}] Neither CAPTCHA nor cookie settings button appeared")
 
-                if captcha_iframe_count > 0:
-
-                    captcha_frame = page.frame_locator(captcha_iframe_selector)
-                    checkbox = captcha_frame.locator('#checkbox')
-                    checkbox.click()
-
-                    page.wait_for_selector(captcha_iframe_selector, state='detached', timeout=10000)
+                # Handle hCaptcha if present
+                if page.locator('iframe[src*="hcaptcha.com"]').is_visible():
+                    print(f"[{browser_type.name}] CAPTCHA detected")
+                    try:
+                        captcha_frame = page.frame_locator('iframe[src*="hcaptcha.com"]')
+                        checkbox = captcha_frame.locator('#checkbox')
+                        checkbox.click()
+                        page.wait_for_selector('iframe[src*="hcaptcha.com"]', state='detached', timeout=15000)
+                        print(f"[{browser_type.name}] CAPTCHA passed")
+                    except TimeoutError:
+                        raise Exception(f"[{browser_type.name}] CAPTCHA did not complete in time")
                 else:
                     print(f"[{browser_type.name}] No CAPTCHA detected")
 
