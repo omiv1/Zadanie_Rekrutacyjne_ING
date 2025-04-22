@@ -7,14 +7,10 @@ def test_ing_cookie_accept():
         for browser_type in [p.chromium, p.firefox, p.webkit]:
             try:
                 browser = browser_type.launch(headless=True)
-                context = browser.new_context(
-                    user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
-                    viewport={'width': 1920, 'height': 1080},
-                    screen={'width': 1920, 'height': 1080},
-                    has_touch=False,
-                    is_mobile=False,
-                )
+                context = browser.new_context()
                 page = context.new_page()
+
+                # 1 Go to the page
                 page.goto("https://www.ing.pl")
 
                 # Poczekaj na CAPTCHA albo przycisk cookie
@@ -22,38 +18,14 @@ def test_ing_cookie_accept():
                 cookie_button_found = False
 
                 captcha_iframe = page.locator('iframe[src*="hcaptcha.com"]')
-                try:
-                    captcha_iframe.wait_for(state="attached", timeout=10000)
-                    if captcha_iframe.count() > 0:
-                        print(f"[{browser_type.name}] CAPTCHA iframe found")
-                        captcha_found = True
-                except TimeoutError:
-                    print(f"[{browser_type.name}] CAPTCHA iframe NOT found within timeout")
-
-
-                try:
-                    page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
-                    cookie_button_found = True
-                except TimeoutError:
-                    pass
-
-                if not captcha_found and not cookie_button_found:
-                    raise Exception(f"[{browser_type.name}] Neither CAPTCHA nor cookie settings button appeared")
-
-                if captcha_found:
-                    print(f"[{browser_type.name}] CAPTCHA detected")
+                captcha_iframe.wait_for(state="attached", timeout=10000)
+                if captcha_iframe.is_visible():
                     captcha_frame = page.frame_locator('iframe[src*="hcaptcha.com"]')
                     checkbox = captcha_frame.locator('#checkbox')
-                    checkbox.click(force=True)
-                    from playwright.sync_api import expect
-                    expect(checkbox).to_have_attribute("aria-checked", "true", timeout=10000)
-                    page.wait_for_selector('iframe[src*="hcaptcha.com"]', state='detached', timeout=15000)
-                    print(f"[{browser_type.name}] CAPTCHA passed")
-                else:
-                    print(f"[{browser_type.name}] No CAPTCHA detected")
+                    checkbox.click()
 
-                if not cookie_button_found:
-                    page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
+
+                page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
 
                 # 2 Click "Dostosuj"
                 page.click('button.js-cookie-policy-main-settings-button')
