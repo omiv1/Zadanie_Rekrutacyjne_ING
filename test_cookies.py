@@ -18,11 +18,10 @@ def test_ing_cookie_accept():
                 page.goto("https://www.ing.pl")
                 page.wait_for_load_state("networkidle")
 
-                if page.frame_locator('iframe[data-id^="hcaptcha-frame"]').count() > 0:
-                    captcha_frame = page.frame_locator('iframe[data-id^="hcaptcha-frame"]').first
-                    captcha_frame.locator('[id="checkbox"]').click()
+                if page.locator('html[data-id^="hcaptcha-frame"]').count() > 0:
+                    page.locator('#checkbox').click()
                     page.wait_for_timeout(5000)
-                    
+
 
                 # 2 Click button "Dostosuj"
                 page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=20000)
