@@ -22,10 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          playwright install
-          pip install playwright
-          pip install pytest-playwright
-          pip install pytest
+          pip install playwright pytest pytest-playwright
+          python -m playwright install --with-deps
           
       - name: Run tests
         run: |
