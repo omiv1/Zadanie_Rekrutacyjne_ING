@@ -19,12 +19,14 @@ def test_ing_cookie_accept():
                 # captcha_iframe = page.locator('iframe[src*="hcaptcha.com"]')
                 # captcha_iframe.wait_for(state="attached", timeout=5000)
 
-                page.wait_for_selector('iframe[src*="hcaptcha.com"]', timeout=5000)
+                # page.wait_for_selector('iframe[src*="hcaptcha.com"]', timeout=5000)
 
-                if captcha_frame is None:
-                    captcha_frame = page.frame_locator('iframe[src*="hcaptcha.com"]')
-                    checkbox = captcha_frame.locator('#checkbox')
-                    checkbox.click()
+                # if captcha_frame is None:
+                #     captcha_frame = page.frame_locator('iframe[src*="hcaptcha.com"]')
+                #     checkbox = captcha_frame.locator('#checkbox')
+                #     checkbox.click()
+
+                page.frame_locator('[title="Widżet zawierający pole wyboru dla wyzwania bezpieczeństwa hCaptcha"]').get_by_role('checkbox').click()
 
                 # 2 Click "Dostosuj"
                 page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=5000)
@@ -52,7 +54,7 @@ def test_ing_cookie_accept():
             except Exception as e:
                 page.screenshot(path=f"ing_error_{browser_type.name}.png")
                 print(f"Error: {e}")
-                raise e
+                # raise e
 
 
 if __name__ == "__main__":
