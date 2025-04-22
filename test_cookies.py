@@ -15,7 +15,7 @@ def test_ing_cookie_accept():
                     is_mobile=False,
                 )
                 page = context.new_page()
-                page.goto("https://www.ing.pl", wait_until="networkidle")
+                page.goto("https://www.ing.pl")
 
                 # Poczekaj na CAPTCHA albo przycisk cookie
                 captcha_found = False
