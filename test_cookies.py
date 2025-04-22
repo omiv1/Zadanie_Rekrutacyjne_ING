@@ -18,9 +18,18 @@ def test_ing_cookie_accept():
                 page.goto("https://www.ing.pl")
                 page.wait_for_load_state("networkidle")
 
-                if page.locator('html[data-id^="hcaptcha-frame"]').count() > 0:
-                    page.locator('#checkbox').click()
-                    page.wait_for_timeout(5000)
+                captcha_iframe_selector = 'iframe[src*="hcaptcha.com"]'
+                captcha_iframe_count = page.locator(captcha_iframe_selector).count()
+
+                if captcha_iframe_count > 0:
+
+                    captcha_frame = page.frame_locator(captcha_iframe_selector)
+                    checkbox = captcha_frame.locator('#checkbox')
+                    checkbox.click()
+
+                    page.wait_for_selector(captcha_iframe_selector, state='detached', timeout=10000)
+                else:
+                    print(f"[{browser_type.name}] No CAPTCHA detected")
 
 
                 # 2 Click button "Dostosuj"
