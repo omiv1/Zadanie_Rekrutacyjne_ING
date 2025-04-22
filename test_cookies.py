@@ -44,7 +44,9 @@ def test_ing_cookie_accept():
                     print(f"[{browser_type.name}] CAPTCHA detected")
                     captcha_frame = page.frame_locator('iframe[src*="hcaptcha.com"]')
                     checkbox = captcha_frame.locator('#checkbox')
-                    checkbox.click()
+                    checkbox.click(force=True)
+                    from playwright.sync_api import expect
+                    expect(checkbox).to_have_attribute("aria-checked", "true", timeout=10000)
                     page.wait_for_selector('iframe[src*="hcaptcha.com"]', state='detached', timeout=15000)
                     print(f"[{browser_type.name}] CAPTCHA passed")
                 else:
