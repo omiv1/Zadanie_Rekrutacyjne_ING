@@ -14,20 +14,20 @@ def test_ing_cookie_accept():
                 page.goto("https://www.ing.pl")
 
                 # Poczekaj na CAPTCHA albo przycisk cookie
-                captcha_found = False
-                cookie_button_found = False
+                captcha_iframe = None
 
-                captcha_iframe = page.locator('iframe[src*="hcaptcha.com"]')
-                captcha_iframe.wait_for(state="attached", timeout=10000)
-                if captcha_iframe.is_visible():
+                # captcha_iframe = page.locator('iframe[src*="hcaptcha.com"]')
+                # captcha_iframe.wait_for(state="attached", timeout=5000)
+
+                page.wait_for_selector('iframe[src*="hcaptcha.com"]', timeout=5000)
+
+                if captcha_frame is None:
                     captcha_frame = page.frame_locator('iframe[src*="hcaptcha.com"]')
                     checkbox = captcha_frame.locator('#checkbox')
                     checkbox.click()
 
-
-                page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
-
                 # 2 Click "Dostosuj"
+                page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=5000)
                 page.click('button.js-cookie-policy-main-settings-button')
 
                 # 3 Enable "Cookies analityczne"
