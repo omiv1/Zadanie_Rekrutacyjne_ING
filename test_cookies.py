@@ -21,11 +21,15 @@ def test_ing_cookie_accept():
                 captcha_found = False
                 cookie_button_found = False
 
+                captcha_iframe = page.locator('iframe[src*="hcaptcha.com"]')
                 try:
-                    page.wait_for_selector('iframe[src*="hcaptcha.com"]', timeout=10000)
-                    captcha_found = True
+                    captcha_iframe.wait_for(state="attached", timeout=10000)
+                    if captcha_iframe.count() > 0:
+                        print(f"[{browser_type.name}] CAPTCHA iframe found")
+                        captcha_found = True
                 except TimeoutError:
-                    pass
+                    print(f"[{browser_type.name}] CAPTCHA iframe NOT found within timeout")
+
 
                 try:
                     page.wait_for_selector('button.js-cookie-policy-main-settings-button', timeout=10000)
