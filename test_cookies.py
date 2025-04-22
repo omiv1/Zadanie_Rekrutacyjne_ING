@@ -5,7 +5,13 @@ def test_ing_cookie_accept():
         for browser_type in [p.chromium, p.firefox, p.webkit]:
             try:
                 browser = browser_type.launch(headless=True)
-                context = browser.new_context()
+                context = browser.new_context(
+                    user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+                    viewport={'width': 1920, 'height': 1080},
+                    screen={'width': 1920, 'height': 1080},
+                    has_touch=False,
+                    is_mobile=False,
+                )
                 page = context.new_page()
 
                 # 1 Open the ING website
