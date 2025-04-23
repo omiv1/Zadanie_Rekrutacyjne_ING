@@ -47,8 +47,7 @@ Projekt zawiera skonfigurowany pipeline GitHub Actions, który:
 - Uruchamia testy automatycznie przy każdym push i pull request
 - Zapisuje zrzuty ekranu jako artefakty w przypadku błędów
 
-Z uwagi na miejsce uruchomienia testów przez serwis GitHub zabezpieczenia strony ing.pl wymagają rozwiązania hCaptche:
-![cookie_error_chromium](https://github.com/user-attachments/assets/f33c7dfb-52bd-45d5-ba63-bdd79650030a)
+Z uwagi na miejsce uruchomienia testów przez serwis GitHub zabezpieczenia strony ing.pl wymagają rozwiązania hCaptche
 
 ## Autor
 
