@@ -1,6 +1,6 @@
 # ING Zadanie Rekrutacyjne
 
-Zadanie sprawdzające funkcjonalność akceptacji cistek na stronie ing.pl
+Zadanie sprawdzające funkcjonalność akceptacji ciastek na stronie ing.pl
 
 ## Wymagania
 
@@ -20,7 +20,7 @@ Uruchomienie testu lokalnie:
 ```bash
 pytest test_cookies.py
 ```
-Test uruchamia się trzech przeglądarkach:
+Test uruchamia się w trzech przeglądarkach:
 - Chromium
 - Firefox
 - WebKit
@@ -38,7 +38,7 @@ Test sprawdza następujące funkcjonalności:
 
 W przypadku wystąpienia błędu podczas testu:
 - Zostanie wykonany zrzut ekranu
-- Plik ze zrzutem zostanie zapisany jako `cookie_error_{nazwa_przeglądarki_w_ktorej_wystapil_blad}.png`
+- Plik ze zrzutem zostanie zapisany jako `cookie_error_{nazwa_przeglądarki_w_której_wystąpił_błąd}.png`
 - Szczegółowy komunikat błędu zostanie wyświetlony w konsoli
 
 ## CI
@@ -47,7 +47,7 @@ Projekt zawiera skonfigurowany pipeline GitHub Actions, który:
 - Uruchamia testy automatycznie przy każdym push i pull request
 - Zapisuje zrzuty ekranu jako artefakty w przypadku błędów
 
-Z uwagi na miejsce uruchomienia testów przez serwis GitHub zabezpieczenia strony ing.pl wymagają rozwiązania hCaptche
+Z uwagi na miejsce uruchomienia testów przez serwis GitHub zabezpieczenia strony ing.pl wymagają rozwiązania hCaptcha
 
 ## Autor
 
