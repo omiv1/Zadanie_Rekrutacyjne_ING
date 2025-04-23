@@ -18,7 +18,7 @@ python -m playwright install --with-deps
 
 Uruchomienie testu lokalnie:
 ```bash
-pytest test_cookies.py
+python test_cookies.py
 ```
 Test uruchamia się w trzech przeglądarkach:
 - Chromium
