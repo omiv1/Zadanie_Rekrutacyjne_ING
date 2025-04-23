@@ -44,7 +44,7 @@ W przypadku wystąpienia błędu podczas testu:
 ## CI
 
 Projekt zawiera skonfigurowany pipeline GitHub Actions, który:
-- Uruchamia testy automatycznie przy każdym push'u i pull requeście
+- Uruchamia testy automatycznie przy każdym push i pull request
 - Zapisuje zrzuty ekranu jako artefakty w przypadku błędów
 
 Z uwagi na miejsce uruchomienia testów przez serwis GitHub zabezpieczenia strony ing.pl wymagają rozwiązania hCaptche:
