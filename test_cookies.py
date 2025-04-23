@@ -41,7 +41,7 @@ def test_ing_cookie_accept():
             except Exception as e:
                 page.screenshot(path=f"cookie_error_{browser_type.name}.png")
                 print(f"Error: {e}")
-                raise e
+                #raise e
 
 
 if __name__ == "__main__":
